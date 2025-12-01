@@ -6,7 +6,7 @@ This module contains functions for creating and solving P-median optimization mo
 
 import pyomo.environ as pyo
 import pandas as pd
-from pyomo.solvers.plugins.solvers.GLPK import GLPKSHELL
+from pyomo.opt.solver import SystemCallSolver
 from typing import Dict, List
 
 
@@ -32,22 +32,32 @@ def create_pmedian_model(distance_matrix: pd.DataFrame, p: int) -> pyo.ConcreteM
     model.N = pyo.Set(initialize=list(distance_matrix.columns))  # Potential facility locations
     
     # Parameters (cost matrix)
+    print('Parameters')
+    # Create index mappings for fast lookup
+    node_to_idx = {node: idx for idx, node in enumerate(distance_matrix.index)}
+    
+    def cost_init(model, i, j):
+        return c[node_to_idx[i]][node_to_idx[j]]
+    
     model.c = pyo.Param(
-        model.M, model.N, 
-        initialize=lambda model, i, j: c[list(distance_matrix.index).index(i)][list(distance_matrix.columns).index(j)], 
+        model.M, model.N,
+        initialize=cost_init,
         within=pyo.NonNegativeReals
     )
     
     # Variables
+    print('Variables')
     model.x = pyo.Var(model.M, model.N, within=pyo.Binary)  # Assignment variables
     model.y = pyo.Var(model.N, within=pyo.Binary)  # Facility location variables
     
     # Objective function
+    print('Objective function')
     def obj_rule(model):
         return sum(model.c[i, j] * model.x[i, j] for i in model.M for j in model.N)
     model.obj = pyo.Objective(rule=obj_rule, sense=pyo.minimize)
     
     # Constraints
+    print('Constraints')
     def single_assignment_rule(model, i):
         return sum(model.x[i, j] for j in model.N) == 1
     model.single_assignment = pyo.Constraint(model.M, rule=single_assignment_rule)
@@ -83,7 +93,11 @@ def solve_pmedian_problem(
     model = create_pmedian_model(distance_matrix, p)
     
     # Solve
-    solver: GLPKSHELL = pyo.SolverFactory('glpk', executable=solver_path)
+    print('Initializing solver')
+    solver = pyo.SolverFactory('glpk', executable=solver_path)
+    # solver: SystemCallSolver = pyo.SolverFactory('scip', executable='/usr/bin/scip')
+
+    print('Starting solving')
     solver.solve(model, tee=verbose)
     
     # Extract results

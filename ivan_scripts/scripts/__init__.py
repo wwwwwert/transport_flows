@@ -9,11 +9,14 @@ with different distance metrics on graphs.
 from .graph_operations import (
     load_graph_from_csv,
     create_graphs,
+    create_graphs_from_edgelist,
     graph_distances_dict,
     protected_distance,
+    protected_distance_speed_graph,
+    extract_speed_attributes,
+    has_speed_attributes,
     prune_leaf_nodes,
-    calculate_distance_matrices,
-    prune_leaf_nodes
+    calculate_distance_matrices
 )
 
 from .optimization import (
@@ -38,8 +41,12 @@ __all__ = [
     # Graph operations
     'load_graph_from_csv',
     'create_graphs',
+    'create_graphs_from_edgelist',
     'graph_distances_dict',
     'protected_distance',
+    'protected_distance_speed_graph',
+    'extract_speed_attributes',
+    'has_speed_attributes',
     'prune_leaf_nodes',
     'calculate_distance_matrices',
     
