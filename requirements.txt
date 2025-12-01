@@ -1,8 +1,0 @@
-notebook
-osmnx
-networkx
-numpy
-# geopy
-seaborn
-pandas
-scikit-learn
