@@ -1,0 +1,11 @@
+notebook
+polars
+polar
+networkx
+numpy
+seaborn
+pandas
+scikit-learn
+folium
+pyomo
+igraph
