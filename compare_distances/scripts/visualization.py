@@ -146,13 +146,14 @@ def draw_graph_with_centers(graph: nx.Graph, centers_dict: Dict[str, List[str]],
         plt.show()
 
 
-def plot_multiple_quantile_distributions(distances_list: List[List[int]], labels: List[str]) -> None:
+def plot_multiple_quantile_distributions(distances_list: List[List[int]], labels: List[str], save_path: Optional[str] = None) -> None:
     """
     Plot quantile distributions for multiple distance datasets.
     
     Args:
         distances_list: List of distance lists to plot
         labels: Labels for each distance dataset
+        save_path: Optional path to save the plot
     """
     plt.figure(figsize=(8, 5))
     
@@ -165,4 +166,8 @@ def plot_multiple_quantile_distributions(distances_list: List[List[int]], labels
     plt.ylabel('GUF Distance')
     plt.title('Quantile Distribution of Distances')
     plt.legend(title='Distance Types')
+    
+    if save_path:
+        plt.savefig(save_path)
+    
     plt.show()

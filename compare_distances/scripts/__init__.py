@@ -22,6 +22,7 @@ from .graph_operations import (
 from .optimization import (
     create_pmedian_model,
     solve_pmedian_problem,
+    solve_pmedian_teitz_bart,
     extract_solution_results
 )
 
@@ -53,6 +54,7 @@ __all__ = [
     # Optimization
     'create_pmedian_model',
     'solve_pmedian_problem',
+    'solve_pmedian_teitz_bart',
     'extract_solution_results',
     
     # Analysis

@@ -237,7 +237,7 @@ def create_graphs_from_edgelist(edgelist_path: str) -> Tuple[ig.Graph, nx.Graph]
     print(f"Loading graph from edgelist: {edgelist_path}")
     
     # Load NetworkX graph directly from edgelist
-    nx_graph = nx.read_edgelist(edgelist_path, create_using=nx.Graph())
+    nx_graph = nx.read_edgelist(edgelist_path, create_using=nx.DiGraph())
     
     print(f"Loaded NetworkX graph with {nx_graph.number_of_nodes()} nodes and {nx_graph.number_of_edges()} edges")
     
