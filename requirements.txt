@@ -9,3 +9,5 @@ scikit-learn
 folium
 pyomo
 igraph
+contextily
+geopandas

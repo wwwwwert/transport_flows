@@ -29,6 +29,10 @@ def load_graph_from_csv(csv_path: str, weight_value: float = 1.0) -> pd.DataFram
     # Load data and add weights
     edges_df = pd.read_csv(csv_path)
     edges_df['weight'] = weight_value
+
+    # Convert vertex names to strings
+    edges_df['source'] = edges_df['source'].astype(str)
+    edges_df['target'] = edges_df['target'].astype(str)
     
     # Create pairs and remove duplicates
     df = edges_df.copy()
