@@ -35,6 +35,7 @@ from .visualization import (
     create_node_labels,
     get_visualization_params,
     draw_graph_with_centers,
+    draw_networkx_auto,
     plot_multiple_quantile_distributions
 )
 
@@ -65,5 +66,6 @@ __all__ = [
     'create_node_labels',
     'get_visualization_params',
     'draw_graph_with_centers',
+    'draw_networkx_auto',
     'plot_multiple_quantile_distributions'
 ]
