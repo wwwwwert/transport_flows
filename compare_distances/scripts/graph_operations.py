@@ -11,8 +11,7 @@ import igraph as ig
 from tqdm import tqdm
 from copy import deepcopy
 import re
-import ast
-from typing import Dict, List, Tuple, Optional, Union
+from typing import Dict, List, Tuple
 
 
 def load_graph_from_csv(csv_path: str, weight_value: float = 1.0) -> pd.DataFrame:
@@ -64,12 +63,12 @@ def create_graphs(edges_df: pd.DataFrame) -> Tuple[ig.Graph, nx.Graph]:
     # Ensure all edges have proper weights in igraph
     for edge in ig_graph.es:
         if not isinstance(edge['weight'], (int, float)) or pd.isnull(edge['weight']):
-            edge['weight'] = 1
+            edge['weight'] = edge['length']
     
     # Create networkx graph
     nx_graph = nx.from_pandas_edgelist(edges_df)
     for (a, b) in nx_graph.edges():
-        nx_graph[a][b]['weight'] = 1
+        nx_graph[a][b]['weight'] = nx_graph[a][b]['length']
         
     return ig_graph, nx_graph
 
@@ -208,7 +207,7 @@ def calculate_distance_matrices(ig_graph: ig.Graph, nx_graph: nx.Graph) -> Tuple
     resistance_data = pd.DataFrame(nx.resistance_distance(nx_graph, weight='weight'))
     
     # Calculate geodesic distances (unchanged)
-    distance_data = pd.DataFrame(dict(nx.all_pairs_shortest_path_length(nx_graph)))
+    distance_data = pd.DataFrame(dict(nx.all_pairs_dijkstra_path_length(nx_graph, weight='weight')))
 
     def sort_columns_and_index(df: pd.DataFrame):
         df.index = df.index.astype(int)
@@ -276,7 +275,7 @@ def create_graphs_from_edgelist(edgelist_path: str) -> Tuple[ig.Graph, nx.Graph]
     # Fill missing values: first backward fill, then forward fill
     edges_df[speed_cols] = edges_df[speed_cols].replace(0, np.nan)
     edges_df[speed_cols] = edges_df[speed_cols].bfill(axis=1).ffill(axis=1).fillna(20.0)
-    edges_df['weight'] = 1.0
+    edges_df['weight'] = edges_df['length']
 
 
     zero_count = (edges_df[speed_cols] == 0).sum().sum()
