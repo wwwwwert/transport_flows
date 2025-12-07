@@ -206,17 +206,17 @@ def calculate_distance_matrices(ig_graph: ig.Graph, nx_graph: nx.Graph) -> Tuple
     # Calculate geodesic distances (unchanged)
     distance_data = pd.DataFrame(dict(nx.all_pairs_shortest_path_length(nx_graph)))
 
-    protected_data.index = protected_data.index.astype(int)
-    protected_data.columns = protected_data.columns.astype(int)
-    protected_data = protected_data.sort_index(axis=0).sort_index(axis=1)
+    def sort_columns_and_index(df: pd.DataFrame):
+        df.index = df.index.astype(int)
+        df.columns = df.columns.astype(int)
+        df = df.sort_index(axis=0).sort_index(axis=1)
+        df.index = df.index.astype(str)
+        df.columns = df.columns.astype(str)
+        return df
 
-    resistance_data.index = resistance_data.index.astype(int)
-    resistance_data.columns = resistance_data.columns.astype(int)
-    resistance_data = resistance_data.sort_index(axis=0).sort_index(axis=1)
-
-    distance_data.index = distance_data.index.astype(int)
-    distance_data.columns = distance_data.columns.astype(int)
-    distance_data = distance_data.sort_index(axis=0).sort_index(axis=1)
+    protected_data = sort_columns_and_index(protected_data)
+    resistance_data = sort_columns_and_index(resistance_data)
+    distance_data = sort_columns_and_index(distance_data)
     
     return protected_data, resistance_data, distance_data
 

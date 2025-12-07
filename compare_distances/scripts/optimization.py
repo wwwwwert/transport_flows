@@ -157,7 +157,8 @@ def solve_pmedian_problem(
         p: int,
         solver_path: str = '/usr/local/bin/glpsol',
         verbose: bool = False,
-        use_warm_start: bool = True
+        use_warm_start: bool = True, 
+        heuristic_solution: bool = True,
     ) -> Dict[str, List[str]]:
     """
     Solve P-median problem for given distance matrix.
@@ -177,11 +178,8 @@ def solve_pmedian_problem(
     Returns:
         Dictionary with facility locations as keys and assigned clients as values
     """
-    # Create model
-    model = create_pmedian_model(distance_matrix, p)
-    
     # Get warm start solution if requested
-    if use_warm_start:
+    if use_warm_start or heuristic_solution:
         print('Computing warm start solution with Teitz-Bart heuristic...')
         heuristic_result = solve_pmedian_teitz_bart(distance_matrix, p)
         heuristic_solution = heuristic_result["solution"]
@@ -189,7 +187,14 @@ def solve_pmedian_problem(
         
         print(f'Heuristic solution objective: {heuristic_objective:.2f}')
         print(f'Heuristic facilities: {list(heuristic_solution.keys())}')
+
+    if heuristic_solution:
+        return heuristic_solution
+    
+    # Create model
+    model = create_pmedian_model(distance_matrix, p)
         
+    if use_warm_start:
         # Set warm start values
         print('Setting warm start values...')
         
