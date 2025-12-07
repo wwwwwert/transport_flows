@@ -23,18 +23,19 @@ def extract_distances_from_solution(result_dict: Dict[str, List[str]],
     result_list = []
     for facility in result_dict.keys():
         for client in result_dict[facility]:
-            try:
-                # Try to get value from prot_dict[(facility, client)]
-                value = prot_dict[(facility, client)]
-            except KeyError:
-                try:
-                    # If not found, try prot_dict[(client, facility)]
-                    value = prot_dict[(client, facility)]
-                except KeyError:
-                    # If neither key found, set default value
-                    value = None
-            if value is not None:
-                result_list.append(int(value))
+            value = prot_dict[(facility, client)]
+            # try:
+            #     # Try to get value from prot_dict[(facility, client)]
+            #     value = prot_dict[(facility, client)]
+            # except KeyError:
+            #     try:
+            #         # If not found, try prot_dict[(client, facility)]
+            #         value = prot_dict[(client, facility)]
+            #     except KeyError:
+            #         # If neither key found, set default value
+            #         value = None
+            # if value is not None:
+            result_list.append(value)
     return result_list
 
 
