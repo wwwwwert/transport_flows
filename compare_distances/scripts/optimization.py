@@ -159,6 +159,7 @@ def solve_pmedian_problem(
         verbose: bool = False,
         use_warm_start: bool = True, 
         use_heuristic_solution: bool = True,
+        timeout_sec: int = 7200
     ) -> Dict[str, List[str]]:
     """
     Solve P-median problem for given distance matrix.
@@ -220,6 +221,8 @@ def solve_pmedian_problem(
     solver: SystemCallSolver = pyo.SolverFactory('scip', executable='/usr/bin/scip')
     # solver: SystemCallSolver = pyo.SolverFactory('cbc', executable='/usr/bin/cbc')
     solver.options['lp/threads'] = 16
+    solver.options['limits/time'] = timeout_sec
+
 
     print('Starting exact solving')
     solver.solve(model, tee=verbose)

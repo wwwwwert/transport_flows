@@ -238,7 +238,7 @@ def extract_speed_attributes(edge_attrs: Dict) -> List[str]:
     return [attr for attr in edge_attrs.keys() if speed_pattern.match(attr)]
 
 
-def create_graphs_from_edgelist(edgelist_path: str) -> Tuple[ig.Graph, nx.Graph]:
+def create_graphs_from_edgelist(edgelist_path: str, weight: str='length') -> Tuple[ig.Graph, nx.Graph]:
     """
     Create both igraph and networkx graph representations from edgelist file.
     
@@ -275,7 +275,14 @@ def create_graphs_from_edgelist(edgelist_path: str) -> Tuple[ig.Graph, nx.Graph]
     # Fill missing values: first backward fill, then forward fill
     edges_df[speed_cols] = edges_df[speed_cols].replace(0, np.nan)
     edges_df[speed_cols] = edges_df[speed_cols].bfill(axis=1).ffill(axis=1).fillna(20.0)
-    edges_df['weight'] = edges_df['length']
+    if weight == 'binary':
+        edges_df['weight'] = 1
+    elif weight == 'length':
+        edges_df['weight'] = edges_df['length']
+    elif weight == 'time':
+        edges_df['weight'] = edges_df['length'] / edges_df[speed_cols].mean(axis=1)
+    else:
+        raise ValueError(f"weight argument should be one of 'binary', 'length', 'duration', got {weight}")
 
 
     zero_count = (edges_df[speed_cols] == 0).sum().sum()
