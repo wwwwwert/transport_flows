@@ -1,0 +1,60 @@
+P-MEDIAN COVERAGE ANALYSIS RESULTS
+    ==================================================
+
+    Problem Configuration:
+    - Dataset: data/graphs/yekaterinburg_small_speed_history_cleared.edgelist
+    - Weight type: length
+    - Graph size: 791 vertices, 1231 edges
+    - P-values tested: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    Coverage Analysis Results:
+    - Geodesic worst distances: [np.float64(0.06460538855829194), np.float64(0.051509463031108184), np.float64(0.03811781807791846), np.float64(0.033982511994610935), np.float64(0.033982511994610935), np.float64(0.033982511994610935), np.float64(0.033982511994610935), np.float64(0.030361862015957315), np.float64(0.030156388567944753)]
+    - Resistance worst distances: [np.float64(0.06460538855829194), np.float64(0.051509463031108184), np.float64(0.039486510711694414), np.float64(0.0343372237379661), np.float64(0.0343372237379661), np.float64(0.0343372237379661), np.float64(0.033982511994610935), np.float64(0.033982511994610935), np.float64(0.0304882558895997)]
+    - GUF worst distances: [np.float64(0.06441078092789411), np.float64(0.05127082028955019), np.float64(0.03959614874900734), np.float64(0.033982511994610935), np.float64(0.03403346978540815), np.float64(0.03403346978540815), np.float64(0.03403346978540815), np.float64(0.03403346978540815), np.float64(0.028700134923791407)]
+
+    Detailed Results by P-value:
+    
+P=1:
+  - Geodesic: 0.06
+  - Resistance: 0.06
+  - GUF: 0.06
+
+P=2:
+  - Geodesic: 0.05
+  - Resistance: 0.05
+  - GUF: 0.05
+
+P=3:
+  - Geodesic: 0.04
+  - Resistance: 0.04
+  - GUF: 0.04
+
+P=4:
+  - Geodesic: 0.03
+  - Resistance: 0.03
+  - GUF: 0.03
+
+P=5:
+  - Geodesic: 0.03
+  - Resistance: 0.03
+  - GUF: 0.03
+
+P=6:
+  - Geodesic: 0.03
+  - Resistance: 0.03
+  - GUF: 0.03
+
+P=7:
+  - Geodesic: 0.03
+  - Resistance: 0.03
+  - GUF: 0.03
+
+P=8:
+  - Geodesic: 0.03
+  - Resistance: 0.03
+  - GUF: 0.03
+
+P=9:
+  - Geodesic: 0.03
+  - Resistance: 0.03
+  - GUF: 0.03

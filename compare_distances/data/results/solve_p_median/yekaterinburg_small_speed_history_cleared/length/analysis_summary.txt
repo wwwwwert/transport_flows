@@ -1,0 +1,36 @@
+P-MEDIAN ANALYSIS RESULTS
+    ==================================================
+
+    Problem Configuration:
+    - Dataset: data/graphs/yekaterinburg_small_speed_history_cleared.edgelist
+    - Weight type: length
+    - Number of facilities: 6
+    - Graph size: 791 nodes, 1231 edges
+
+    Solution Comparison:
+    - Geodesic centers: ['798', '882', '954', '1094', '1514', '1576']
+    - Resistance centers: ['882', '830', '968', '806', '1089', '1514']
+    - Protected centers: ['1006', '1135', '798', '1514', '882', '928']
+
+    Distance Analysis (median values):
+    - Geodesic solution median distance: 0.01
+    - Resistance solution median distance: 0.01
+    - Protected solution median distance: 0.01
+
+    Statistical Summary:
+             geodesic  resistance   protected
+count  791.000000  791.000000  791.000000
+mean     0.011745    0.012650    0.011598
+std      0.006248    0.006915    0.006152
+min      0.000000    0.000000    0.000000
+10%      0.003787    0.003858    0.003744
+20%      0.006071    0.006403    0.005833
+30%      0.008302    0.008456    0.008079
+40%      0.010090    0.010320    0.010029
+50%      0.011606    0.012520    0.011720
+60%      0.013138    0.014337    0.013019
+70%      0.014998    0.016447    0.014687
+80%      0.016932    0.018660    0.016555
+90%      0.019450    0.021824    0.019152
+max      0.033983    0.033639    0.034033
+    
